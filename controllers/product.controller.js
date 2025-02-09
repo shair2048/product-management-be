@@ -11,24 +11,17 @@ const getProducts = async (req, res) => {
   }
 };
 
-// const getProductById = async (req, res) => {
-//   try {
-//     const { id } = req.params;
+const getProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-//     const product = await Product.findById(id);
+    const product = await Product.findById(id);
 
-//     const formattedTask = {
-//       ...task._doc,
-//       deadline: format(new Date(product.deadline), "dd-MM-yyyy"),
-//       createdAt: format(new Date(product.createdAt), "dd-MM-yyyy"),
-//       updatedAt: format(new Date(product.updatedAt), "dd-MM-yyyy"),
-//     };
-
-//     res.status(200).json(formattedTask);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 const createProduct = async (req, res) => {
   try {
@@ -75,6 +68,7 @@ const deleteProduct = async (req, res) => {
 
 module.exports = {
   getProducts,
+  getProductById,
   createProduct,
   updateProduct,
   deleteProduct,

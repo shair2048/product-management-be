@@ -2,30 +2,30 @@ const express = require("express");
 const mongoose = require("mongoose");
 const productRoute = require("./routes/product.route.js");
 
-// const cors = require("cors");
+const cors = require("cors");
 
 const app = express();
 const port = 3000;
 
-// const allowedOrigins = ["http://localhost:8081"];
+const allowedOrigins = ["http://localhost:8081"];
 
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Các phương thức HTTP được cho phép
-//   allowedHeaders: ["Content-Type", "Authorization"], // Các header được cho phép
-//   credentials: true,
-// };
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
 
 // // middleware
 app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 // // routes
 app.use("/api/product", productRoute);
