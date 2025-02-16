@@ -1,4 +1,5 @@
 const Product = require("../models/product.model.js");
+const upload = require("../middlewares/upload");
 // const { format } = require("date-fns");
 
 const getProducts = async (req, res) => {
@@ -24,15 +25,28 @@ const getProductById = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-  try {
-    const productData = req.body;
+  upload.single("image")(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({ error: err.message });
+    }
 
-    const product = await Product.create(productData);
+    try {
+      const { productName } = req.body;
+      const productImage = req.file
+        ? `assets/uploads/${req.file.filename}`
+        : null;
 
-    res.status(201).json(product);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+      const product = await Product.create({
+        productName,
+        productImage,
+      });
+
+      res.status(201).json(product);
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ message: error.message });
+    }
+  });
 };
 
 const updateProduct = async (req, res) => {
