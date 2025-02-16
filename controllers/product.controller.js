@@ -25,7 +25,7 @@ const getProductById = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-  upload.single("image")(req, res, async (err) => {
+  upload.single("productImage")(req, res, async (err) => {
     if (err) {
       return res.status(400).json({ error: err.message });
     }
