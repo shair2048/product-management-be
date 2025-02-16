@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const productRoute = require("./routes/product.route.js");
 
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 const port = 3000;
@@ -29,6 +30,9 @@ app.use(cors(corsOptions));
 
 // // routes
 app.use("/api/product", productRoute);
+
+// Cấu hình phục vụ ảnh tĩnh từ folder 'assets/uploads'
+app.use("/uploads", express.static(path.join(__dirname, "assets/uploads")));
 
 mongoose
   .connect(

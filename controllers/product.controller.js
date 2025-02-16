@@ -33,7 +33,7 @@ const createProduct = async (req, res) => {
     try {
       const { productName } = req.body;
       const productImage = req.file
-        ? `assets/uploads/${req.file.filename}`
+        ? `http://192.168.1.2:3000/uploads/${req.file.filename}`
         : null;
 
       const product = await Product.create({
